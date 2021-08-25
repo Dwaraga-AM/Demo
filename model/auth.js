@@ -6,10 +6,10 @@ const userSchema=mongoose.Schema({
   fullname: {type:String,required:true},
   email: {type:String,required:true},
   pic: {type:String},
-  roles: {type:Array},
+  roles: {type: Array},
   occupation: {type:String},
   companyName: {type:String},
-  phone: {type:String},
+  phone: {type:Number},
   address: {
     addressLine: {type:String},
     city: {type:String},
@@ -59,34 +59,3 @@ const userSchema=mongoose.Schema({
 userSchema.plugin(uniqueValidator);
 
 module.exports=mongoose.model('Auth',userSchema);
-/* 
-"fullname":"fullname",
-"email":"email",
-"password":hash,
-"username": "",
-"pic": "",
-"roles": "",
-"occupation":"" ,
-"companyName":"" ,
-"phone": "",
-"address": {
-"addressLine":"",
-"city":"",
-"state":"",
-"postCode":""
-},
-"socialNetworks:{
-"linkedIn:" "",
-"facebook": "" ,
-"twitter": "",
-"instagram": ""
-},
-// personal information
-"website": "",
-// account information
-"language": "",
-"timeZone": "" ,
-"communication":{
-  "sms": "",
-  "phone": ""
-}  */

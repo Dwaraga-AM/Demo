@@ -159,6 +159,7 @@ export class CustomersComponent
       this.customerService.fetch(),
       () => { }
     );
+    console.log("customer component modal ref",modalRef);
   }
 
   delete(id: number) {

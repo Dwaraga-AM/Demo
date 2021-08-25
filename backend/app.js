@@ -4,6 +4,7 @@ const bodyParser=require('body-parser');
 
 
 const userRoutes=require('../router/auth');
+const customerRoutes=require('../router/customer');
 const productRoutes=require('../router/product');
 const app=express();
 const dbURL="mongodb+srv://dwara:watson123@sandbox.vi6xr.mongodb.net/Demo_01";
@@ -39,11 +40,9 @@ app.use(bodyParser.urlencoded({ limit: '5mb', extended: true })); app.use(bodyPa
   );
   next();
   });
- app.get('/test',(req,res)=>{
-   res.send('test1');
- })
  app.use(express.json());
  app.use(cookieparser());
- app.use("/api/site",productRoutes);
+ app.use("/api/customer",customerRoutes);
+ app.use("/api/product",productRoutes);
  app.use("/api/user",userRoutes);
 module.exports=app;

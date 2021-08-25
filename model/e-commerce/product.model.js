@@ -11,8 +11,8 @@ const carsSchema=mongoose.Schema({
   condition: { type: Number},
   status: { type: Number},
   VINCode: { type: String},
-  _userId:{type:Date},
+  _userId:{type:String},
   _createdDate:{type: Date},
   _updatedDate:{type:Date}
 })
-module.exports=mongoose.model('Car',carsSchema);
+module.exports=mongoose.model('Product',carsSchema);

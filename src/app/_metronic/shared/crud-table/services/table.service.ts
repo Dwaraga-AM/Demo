@@ -68,7 +68,7 @@ export abstract class TableService<T> {
   }
 
   // CREATE
-  // server should return the object with ID
+  /* // server should return the object with ID
   create(item: BaseModel): Observable<BaseModel> {
     this._isLoading$.next(true);
     this._errorMessage.next('');
@@ -93,7 +93,34 @@ export abstract class TableService<T> {
         return of({ items: [], total: 0 });
       })
     );
+  } */
+  create(item: BaseModel): Observable<BaseModel> {
+    this._isLoading$.next(true);
+    this._errorMessage.next('');
+    console.log("this is the item",item);
+    return this.http.post<BaseModel>("http://localhost:3000/api/customer/add", item).pipe(
+      catchError(err => {
+        this._errorMessage.next(err);
+        console.error('CREATE ITEM', err);
+        return of({ id: undefined });
+      }),
+      finalize(() => this._isLoading$.next(false))
+    );
   }
+
+  // READ (Returning filtered list of entities)
+  find() : Observable<any[]>{
+    console.log("Request to get customer list");
+     return  this.http.get<any[]>("http://localhost:3000/api/customer/list");
+   /*  return this.http.post<TableResponseModel<T>>("http://localhost:3000/api/customer/list", tableState).pipe(
+      catchError(err => {
+        this._errorMessage.next(err);
+        console.error('FIND ITEMS', err);
+        return of({ items: [], total: 0 });
+      })
+    ); */
+  }
+
 
   getItemById(id: number): Observable<BaseModel> {
     this._isLoading$.next(true);
@@ -172,9 +199,8 @@ export abstract class TableService<T> {
   }
 
   public fetch() {
-    this._isLoading$.next(true);
     this._errorMessage.next('');
-    const request = this.find(this._tableState$.value)
+    /* const request = this.find(this._tableState$.value)
       .pipe(
         tap((res: TableResponseModel<T>) => {
           this._items$.next(res.items);
@@ -204,7 +230,7 @@ export abstract class TableService<T> {
       )
       .subscribe();
     this._subscriptions.push(request);
-  }
+ */  }
 
   public setDefaults() {
     this.patchStateWithoutFetch({ filter: {} });

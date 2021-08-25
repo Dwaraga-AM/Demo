@@ -42,21 +42,22 @@ router.get('/view',(req,res,next)=>{
 });
 
 router.post("/registration",(req,res,next)=>{
-  console.log("request",req.body);
- bcrypt.hash(req.body.password, 10)
-    .then(hash =>{
-      let user=new Auth({
+  bcrypt.hash(req.body.password, 10)
+     .then(hash =>{
+       const user=new Auth({
         username:"",
         password: hash,
         email: req.body.email,
-        roles:[1], 
+        roles:[{
+          rolestype:"customer"
+        }], 
         pic: "",
         fullname: req.body.fullname,
         firstname:"",
         lastname: "",
         occupation:"",
         companyName: "",
-        phone: phone,
+        phone: "",
         language: "",
         timeZone: "",
         communication: {
@@ -95,23 +96,20 @@ router.post("/registration",(req,res,next)=>{
             twitter: 'https://twitter.com/user',
             instagram: 'https://instagram.com/user',
           } 
-    
-});
-    user.save()
-      .then(result =>{
-        console.log(user);
-        res.status(201).json({
-          message:"User Created",
-          result: result,
-          user:user
-        });
-      })
-      .catch(err =>{
-        res.status(500).json({
-          error:err
-        });
-      });
-  });
+     });
+     user.save()
+       .then(result =>{
+         res.status(201).json({
+           message:"User Created",
+           result: result
+         });
+       })
+       .catch(err =>{
+         res.status(500).json({
+           error:err
+         });
+       });
+   });
 });
 
 router.put('/update',(req,res,next)=>{
